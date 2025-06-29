@@ -126,7 +126,7 @@ docker run --rm -p 8080:8080 wikipedia-agent:latest
 ```bash
 bash test.sh
 ```
-![test](img/image.png)
+![test](./img/image.png)
 
 -----
 
