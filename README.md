@@ -83,37 +83,26 @@ curl http://localhost:8080/version
 
 ### Fetch a Wikipedia Summary
 
-**POST** `/`
-Content-Type: `application/json`
+**POST** `/lookup`
+Content-Type: `text/plain`
 
-The arguments object should contain a single `topic` key with the page title to look up.
+The request body should contain the plain text topic you want to look up.
 
-**Example Request:**
+**Example Request (using `curl`):**
 
-```json
-{
-    "jsonrpc": "2.0",
-    "method": "tools/call",
-    "params": {
-        "name": "fetch_wikipedia_summary",
-        "arguments": {
-            "topic": "General relativity"
-        }
-    },
-    "id": "c4d2b1a0"
-}
+```bash
+curl -X POST \
+  -H "Content-Type: text/plain" \
+  -d "General relativity" \
+  http://localhost:8080/lookup
 ```
 
 **Example Response:**
 
-The result is a JSON string containing the plain-text summary of the article.
+The server will respond with the plain text summary of the Wikipedia article directly in the response body.
 
-```json
-{
-    "jsonrpc": "2.0",
-    "result": "General relativity, also known as the general theory of relativity and Einstein's theory of gravity, is the geometric theory of gravitation published by Albert Einstein in 1915 and is the current description of gravitation in modern physics...",
-    "id": "c4d2b1a0"
-}
+```text
+General relativity, also known as the general theory of relativity and Einstein's theory of gravity, is the geometric theory of gravitation published by Albert Einstein in 1915 and is the current description of gravitation in modern physics...
 ```
 
 -----
@@ -133,6 +122,11 @@ Under the hood, this runs the following standard Docker commands:
 docker build -t wikipedia-agent:latest .
 docker run --rm -p 8080:8080 wikipedia-agent:latest
 ```
+
+```bash
+bash test.sh
+```
+![test](img/image.png)
 
 -----
 
